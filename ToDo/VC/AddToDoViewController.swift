@@ -26,7 +26,9 @@ class AddToDoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let container = NSPersistentContainer(name: "ToDo")
+        
+        let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+        
         
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(
@@ -63,13 +65,20 @@ class AddToDoViewController: UIViewController {
     }
     
     @IBAction func done(_ sender: UIButton) {
+        let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+        let context: NSManagedObjectContext = container.viewContext
+        
+        let date = dateSelect.date
         guard let title = textEdit.text, !title.isEmpty else {
             return 
         }
-        let todo = Todo(context: coreDataStack.managedContext)
+        
+        let todo = Todo(context: context)
+        todo.date = date
         todo.title = title
+        
         do {
-            try coreDataStack.managedContext.save()
+            try context.save()
             dismissAndResign()
         } catch {
             print("Error saving to-do: \(error)")

@@ -43,13 +43,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DA19B9262483A9240058C1AB /* CodeData */ = {
+		DA19B9262483A9240058C1AB /* CoreDataModel */ = {
 			isa = PBXGroup;
 			children = (
 				DAD0DFB924824B2800FF48C5 /* ToDo.xcdatamodeld */,
 				DA19B9242483A9190058C1AB /* CoreDatasStack.swift */,
 			);
-			path = CodeData;
+			path = CoreDataModel;
 			sourceTree = "<group>";
 		};
 		DA19B9272483A9530058C1AB /* AccessoryFiles */ = {
@@ -86,7 +86,7 @@
 				DAD0DFC124824B2A00FF48C5 /* Info.plist */,
 				DAD0DFC72482677800FF48C5 /* VC */,
 				DAD0DFB624824B2800FF48C5 /* Main.storyboard */,
-				DA19B9262483A9240058C1AB /* CodeData */,
+				DA19B9262483A9240058C1AB /* CoreDataModel */,
 			);
 			path = ToDo;
 			sourceTree = "<group>";
