@@ -16,6 +16,8 @@
 		DAD0DFC024824B2A00FF48C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAD0DFBE24824B2A00FF48C5 /* LaunchScreen.storyboard */; };
 		DAD0DFC9248267B900FF48C5 /* ToDoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0DFC8248267B900FF48C5 /* ToDoTableViewController.swift */; };
 		DAD0DFCD2482688500FF48C5 /* AddToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD0DFCC2482688500FF48C5 /* AddToDoViewController.swift */; };
+		DAE136BF2487EB4F0023BB69 /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE136BE2487EB4F0023BB69 /* TestTableViewController.swift */; };
+		DAE754542487A5CC00FB550C /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE754532487A5CC00FB550C /* TodoCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		DAD0DFC124824B2A00FF48C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAD0DFC8248267B900FF48C5 /* ToDoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewController.swift; sourceTree = "<group>"; };
 		DAD0DFCC2482688500FF48C5 /* AddToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoViewController.swift; sourceTree = "<group>"; };
+		DAE136BE2487EB4F0023BB69 /* TestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
+		DAE754532487A5CC00FB550C /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +90,7 @@
 				DAD0DFC124824B2A00FF48C5 /* Info.plist */,
 				DAD0DFC72482677800FF48C5 /* VC */,
 				DAD0DFB624824B2800FF48C5 /* Main.storyboard */,
+				DAE754532487A5CC00FB550C /* TodoCell.swift */,
 				DA19B9262483A9240058C1AB /* CoreDataModel */,
 			);
 			path = ToDo;
@@ -96,6 +101,7 @@
 			children = (
 				DAD0DFCC2482688500FF48C5 /* AddToDoViewController.swift */,
 				DAD0DFC8248267B900FF48C5 /* ToDoTableViewController.swift */,
+				DAE136BE2487EB4F0023BB69 /* TestTableViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -173,10 +179,12 @@
 			files = (
 				DAD0DFB124824B2800FF48C5 /* AppDelegate.swift in Sources */,
 				DAD0DFC9248267B900FF48C5 /* ToDoTableViewController.swift in Sources */,
+				DAE754542487A5CC00FB550C /* TodoCell.swift in Sources */,
 				DAD0DFCD2482688500FF48C5 /* AddToDoViewController.swift in Sources */,
 				DAD0DFB324824B2800FF48C5 /* SceneDelegate.swift in Sources */,
 				DAD0DFBB24824B2800FF48C5 /* ToDo.xcdatamodeld in Sources */,
 				DA19B9252483A9190058C1AB /* CoreDatasStack.swift in Sources */,
+				DAE136BF2487EB4F0023BB69 /* TestTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

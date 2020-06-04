@@ -75,7 +75,7 @@ class AddToDoViewController: UIViewController {
         
         let todo = Todo(context: context)
         todo.date = date
-        todo.title = title
+        todo.task = title
         
         do {
             try context.save()

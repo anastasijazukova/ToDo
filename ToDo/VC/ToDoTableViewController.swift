@@ -16,14 +16,15 @@ class ToDoTableViewController: UITableViewController, NSFetchedResultsController
     var resultsController: NSFetchedResultsController<Todo>!
     let coreDataStack = CoreDataStack()
     var dateFormatter: DateFormatter {
-        var df = DateFormatter()
+        let df = DateFormatter()
         df.setLocalizedDateFormatFromTemplate("d MMM, yyyy")
         return df
     }
+    let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //let container = NSPersistentContainer(name: "Todo")
+        
         let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
         let context: NSManagedObjectContext = container.viewContext
         // Request
@@ -47,6 +48,9 @@ class ToDoTableViewController: UITableViewController, NSFetchedResultsController
             print ("Perform fetch error \(error)")
         }
         
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -58,23 +62,32 @@ class ToDoTableViewController: UITableViewController, NSFetchedResultsController
     
     @IBOutlet var ToDoTable: UITableView!
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        
         return resultsController.sections?[section].numberOfObjects ?? 0
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = ToDoTable.dequeueReusableCell(withIdentifier: "ToDoCell", for: indexPath)
+        let cell = ToDoTable.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath) as! TodoCell
+        
+        
         // Configure the cell
         let todo = resultsController.object(at: indexPath)
         // MARK: Add date label
+        
         let date = todo.date
-        //let dateString: String? = dateFormat.string(from: todo.date ?? nil)
-        cell.textLabel?.text = dateFormatter.string(from: date!)
-        cell.detailTextLabel?.text = todo.title
-        //cell.textLabel?.text = dateString
+        
+        let dateString = dateFormatter.string(from: date!)
+        
+        cell.dateLabel.text = dateString
+        
+        cell.taskLabel.text = todo.task
         
         
         return cell
@@ -89,7 +102,10 @@ class ToDoTableViewController: UITableViewController, NSFetchedResultsController
         case .insert:
             if let indexPath = newIndexPath {
                 tableView.insertRows(at: [indexPath], with: .automatic)
-                tableView.reloadData()
+            }
+        case .delete:
+            if let indexPath = newIndexPath {
+                tableView.deleteRows(at: [indexPath], with: .automatic)
             }
         default:
             break
@@ -100,31 +116,42 @@ class ToDoTableViewController: UITableViewController, NSFetchedResultsController
     }
     // MARK: - Table view delegate
     
+    // TODO: Mark as done
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .destructive, title: "Done") { (action, view, completion) in
-            // TODO: Mark as done
+        let action = UIContextualAction(style: .normal, title: "Done") { (action, view, completion) in
             completion(true)
         }
-        let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
-        let context: NSManagedObjectContext = container.viewContext
-        let todo = Todo(context: context)
         
-        
-
         action.backgroundColor = .green
         action.image = UIImage(systemName: "checkmark", withConfiguration: .none)
         return UISwipeActionsConfiguration(actions: [action])
         
     }
+    
+    // TODO: Delete todo
+    
+    
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+        let context: NSManagedObjectContext = container.viewContext
+        
         let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion) in
-            // TODO: Delete todo
+            let todo = self.resultsController.object(at: indexPath)
+            tableView.beginUpdates()
+            context.delete(todo)
+            do {
+                try container.viewContext.save()
+            } catch {
+                print("error")
+            }
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.reloadData()
+            tableView.endUpdates()
+            
             completion(true)
         }
-        let container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
-           let context: NSManagedObjectContext = container.viewContext
-           let todo = Todo(context: context)
-        context.delete(todo)
+        
         action.backgroundColor = .red
         action.image = UIImage(systemName: "trash", withConfiguration: .none)
         return UISwipeActionsConfiguration(actions: [action])
